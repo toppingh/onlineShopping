@@ -1,0 +1,6 @@
+.idea
+*.pyc
+*~
+/venv_django
+__pycache__
+.DS_Store
