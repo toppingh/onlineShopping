@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 
 from .models import *
+from cart.forms import AddProductForm
 
 # Create your views here.
 # 카테고리 페이지 뷰
@@ -18,4 +19,5 @@ def product_in_category(request, category_slug=None):
 # 상품 상세 페이지 뷰
 def product_detail(request, id, product_slug=None):
     product = get_object_or_404(Product, id=id, slug=product_slug)
-    return render(request, 'shop/detail.html', {'product':product})
+    add_to_cart = AddProductForm(initial={'quantity':1})
+    return render(request, 'shop/detail.html', {'product':product, 'add_to_cart':add_to_cart})

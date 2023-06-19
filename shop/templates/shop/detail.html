@@ -12,7 +12,8 @@
             <p><span class="badge badge-light">가격</span>
                 {% load humanize %}
                 &#8361;{{product.price | floatformat:'0' | intcomma}}</p>
-            <form action="" method="post">
+            <form action="{% url 'cart:product_add' product.id %}" method="post">
+                {{add_to_cart}}
                 {% csrf_token %}
                 <input type="submit" class="btn btn-outline-info btn-sm" value="장바구니에 담기">
             </form>
