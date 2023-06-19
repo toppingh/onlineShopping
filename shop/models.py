@@ -19,7 +19,7 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('shop:product_in_category', args=[self.slug])
+        return reverse('shop:product_in_category', args=[str(self.slug)])
 
 # 상품 모델
 class Product(models.Model):
@@ -28,14 +28,16 @@ class Product(models.Model):
     slug = models.SlugField(max_length=100, db_index=True, unique=True, allow_unicode=True)
 
     image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True)
+    baeminImage = models.ImageField(upload_to='productsQR/%Y/%m/%d', blank=True)
     description = models.TextField(blank=True)
     meta_description = models.TextField(blank=True)
+    url = models.URLField(default='정보없음')
 
     price = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.PositiveIntegerField()
 
     available_display = models.BooleanField('Display', default=True)
-    available_order = models.BooleanField('Order',default=True)
+    available_order = models.BooleanField('Order', default=True)
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

@@ -1,37 +1,36 @@
 {% extends 'base.html' %}
 {% block title %}Category Page{% endblock %}
 {% block content %}
-{% load humanize %}
+<br>
 <div class="row">
     <div class="col-2"> <!--col-2 : 2조각-->
         <div class="list-group">
-            <a href="/" class="list-group-item
+            <a href="/" class="list-group-item list-group-item-action list-group-item-secondary
 {% if not current_category%}active{% endif %}">All</a>
             {%for c in categories %}
-            <a href="{{c.get_absolute_url}}" class="list-group-item
+            <a href="{{c.get_absolute_url}}" class="list-group-item list-group-item-action list-group-item-secondary
 {% if current_category.slug == c.slug %}active{% endif %}">
                 {{c.name}}</a>
             {% endfor %}
         </div>
     </div>
     <div class="col">
-        <div class="alert alert-info" role="alert">
-            {% if current_category %}{{current_category.name}}
+        <div class="alert alert-danger" role="alert">
+            {% if current_category %}{{current_category.name}}를/을 판매하고 있는 스토어입니다.
             {% else %} All Products {% endif %}
         </div>
         <div class="row">
             {% for product in products %}
-            <div class="col-4">
+            <div class="col-sm-4">
                 <div class="card">
-                    <img class="card-img-top" src="{{product.image.url}}"
-                         alt="Product image">
-                    <div class="card-body">
+                    <img class="card-img-top" src="{{product.image.url}}" alt="Product image" width="466px" height="270">
+                    <div class="card-body" style="text-align:center">
                         <h5 class="card-title">{{product.name}}</h5>
-                        <p class="card-text">{{product.description}}
-                            <span class="badge badge-secondary">
-${{product.price | intcomma}}</span></p>
-                        <a href="{{product.get_absolute_url}}"
-                           class="btn btn-primary">View Detail</a>
+                        {% load humanize %}
+                        <img class="card-img" src="{{product.baeminImage.url}}" alt="QRcode image" style="width:70px; height:70px; text-align:center;"><p/>
+                            <h4 class="badge badge-light">
+&#8361;{{product.price | floatformat:'0' | intcomma}}</h4><p/>
+                        <a href="{{product.get_absolute_url}}" class="btn btn-outline-info">View Detail</a>
                     </div>
                 </div>
             </div>
