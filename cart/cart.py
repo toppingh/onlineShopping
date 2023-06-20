@@ -3,6 +3,7 @@ from decimal import Decimal
 import requests
 from django.conf import settings
 from shop.models import Product
+from coupon.models import Coupon
 
 class Cart(object):
     def __init__(self, request):
@@ -11,6 +12,7 @@ class Cart(object):
         if not cart : # cart 정보가 없으면
             cart = self.session[settings.CART_ID] = {} # 새 딕셔너리 생성
         self.cart = cart
+        self.coupon_id = self.session.get('coupon_id') # 쿠폰 추가
 
     def __len__(self): # 장바구니에 있는 상품의 수량을 전부 더한 결과
         return sum(item['quantity'] for item in self.cart.values())
@@ -56,8 +58,27 @@ class Cart(object):
     # 장바구니 비우기
     def clear(self):
         self.session[settings.CART_ID] = {}
+        self.session['coupon_id'] = None # 쿠폰 추가
         self.session.modified = True
 
     # 장바구니에 있는 제품의 총 가격 계산
     def get_product_total(self):
         return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
+
+    # 쿠폰 기능 추가
+    @property
+    def coupon(self):
+        if self.coupon_id:
+            return Coupon.objects.get(id=self.coupon_id)
+        return None
+
+    # 할인 금액
+    def get_discount_total(self):
+        if self.coupon:
+            if self.get_product_total() >= self.coupon.amount:
+                return self.coupon.amount
+        return Decimal(0)
+
+    # 총 금액
+    def get_total_price(self):
+        return self.get_product_total() - self.get_discount_total()

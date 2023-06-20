@@ -4,6 +4,7 @@ from django.views.decorators.http import require_POST
 from shop.models import Product
 from .forms import AddProductForm
 from .cart import Cart
+from coupon.forms import AddCouponForm
 
 # Create your views here.
 
@@ -30,7 +31,8 @@ def remove(request, product_id):
 # 장바구니 정보
 def detail(request):
     cart = Cart(request)
+    add_coupon = AddCouponForm() # 쿠폰 추가
 
     for product in cart:
         product['quantity_form'] = AddProductForm(initial={'quantity':product['quantity'], 'is_update':True})
-    return render(request, 'cart/detail.html', {'cart':cart})
+    return render(request, 'cart/detail.html', {'cart':cart, 'add_coupon':add_coupon}) # 쿠폰 추가

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.naver',
     'allauth.socialaccount.providers.kakao',
     'cart',
+    'coupon',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
