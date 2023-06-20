@@ -4,12 +4,13 @@ import hashlib
 
 from coupon.models import Coupon
 from shop.models import Product
-from .portone import payments_prepare, find_transaction
+from .iamport import payments_prepare, find_transaction
 
 # Create your models here.
 # 주문 정보를 저장하는 모델
 class Order(models.Model):
-    name = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50, null=False)
+    last_name = models.CharField(max_length=50, null=False)
     phone = models.CharField(max_length=23)
     email = models.EmailField()
     address = models.CharField(max_length=250)
@@ -129,5 +130,5 @@ def order_payment_validation(sender, instance, created, *args, **kwargs):
         if not portone_transaction or not local_transaction:
             raise ValueError("비정상 거래입니다.")
 
-    from django.db.models.signals import post_save
-    post_save.connect(order_payment_validation, sender=OrderTransaction)
+from django.db.models.signals import post_save
+post_save.connect(order_payment_validation, sender=OrderTransaction)

@@ -6,8 +6,8 @@ from django.conf import settings
 # 발급받은 토큰으로 유저가 결제한 정보 가져옴
 def get_token():
     access_data = {
-        'pto_key' : settings.PORTONE_KEY,
-        'pto_secret' : settings.PORTONE_SECRRET
+        'imp_key' : settings.IAMPORT_KEY,
+        'imp_secret' : settings.IAMPORT_SECRRET
     }
 
     url = "https://api.iamport.kr/users/getToken"
@@ -58,7 +58,7 @@ def find_transaction(order_id, *args, **kwargs):
 
         if res['code'] is 0:
             context = {
-                'pto_id':res['response']['pto_uid'],
+                'imp_id':res['response']['imp_uid'],
                 'merchant_order_id':res['response']['merchant_uid'],
                 'amount':res['response']['amount'],
                 'status':res['response']['status'],
@@ -70,3 +70,22 @@ def find_transaction(order_id, *args, **kwargs):
             return None
     else:
         raise ValueError("토큰 오류")
+
+# 결제 오류 디버깅
+def get_token():
+    access_data = {
+        'imp_key': settings.IAMPORT_KEY,
+        'imp_secret': settings.IAMPORT_SECRET
+    }
+
+    url = "https://api.iamport.kr/users/getToken"
+
+    req = requests.post(url, data=access_data)
+    access_res = req.json()
+
+    print('get_token()--(1) : ', access_res) # access_res 값 확인해보기
+
+    if access_res['code'] is 0:
+        return access_res['response']['access_token']
+    else:
+        return None
