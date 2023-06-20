@@ -3,6 +3,6 @@ from .views import add_coupon
 
 app_name = 'coupon'
 
-urlpattern = [
+urlpatterns = [
     path('add/', add_coupon, name='add'),
 ]
