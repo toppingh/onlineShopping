@@ -41,29 +41,22 @@ Shopping cart
     {% endwith %}
     {% endfor %}
 
-    <tr class="total">
-        <td>Total</td>
-        <td colspan="4"></td>
-        {% load humanize %}
-        <td class="num">&#8361;{{cart.get_product_total | floatformat:'0' | intcomma}}</td>
-    </tr>
-
     {% if cart.coupon %}
     <tr class="subtotal">
         <td>Subtotal</td>
         <td colspan="4"></td>
-        <td>${{cart.get_product_total }}</td>
+        <td>&#8361; {{cart.get_product_total | floatformat:'0' | intcomma}}</td>
     </tr>
     <tr>
-        <td>"{{cart.coupon.code}}" coupon (${{cart.coupon.amount}})</td>
+        <td>"{{cart.coupon.code}}" coupon (&#8361; {{cart.coupon.amount}})</td>
         <td colspan="4"></td>
-        <td>- ${{cart.get_discount_total|floatformat:"2"}}</td>
+        <td>- &#8361; {{cart.get_discount_total | floatformat:"0" | intcomma}}</td>
     </tr>
     {% endif %}
     <tr class="total">
         <td>Total</td>
         <td colspan="4"></td>
-        <td class="num">$ {{cart.get_total_price|floatformat:"2"}}</td>
+        <td class="num">&#8361; {{cart.get_total_price | floatformat:"0" | intcomma}}</td>
     </tr>
 
     </tbody>

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.kakao',
     'cart',
     'coupon',
+    'order',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -163,3 +164,7 @@ LOGIN_REDIRECT_URL = '/'
 
 # Cart
 CART_ID = 'cart_in_session'
+
+# Portone
+PORTONE_KEY = '6140640287675258'
+PORTONE_SECRET = 'NccoqA8Z94Gb026CsBFa3J71UCCkfy1CxJskbSiBrKiFENRKeepLWAOc0sbCXf9Uwu9ENwfEkC7epGY7'
