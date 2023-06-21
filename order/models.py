@@ -116,18 +116,18 @@ def order_payment_validation(sender, instance, created, *args, **kwargs):
     # transaction_id가 존재하느 경우에만 실행
     if instance.transaction_id:
         # merchant_order_id를 이용해 포트원에서 transaction을 요청해 얻어옴
-        portone_transaction = OrderTransaction.objects.get_transaction(merchant_order_id=instance.merchant_order_id)
+        iamport_transaction = OrderTransaction.objects.get_transaction(merchant_order_id=instance.merchant_order_id)
 
-        merchant_order_id = portone_transaction['merchant_order_id']
-        pto_id = portone_transaction['pto_id'] # 결제 모듈 측의 id
-        amount = portone_transaction['amount']
+        merchant_order_id = iamport_transaction['merchant_order_id']
+        imp_id = iamport_transaction['imp_id'] # 결제 모듈 측의 id
+        amount = iamport_transaction['amount']
 
         # Order Transaction model에 저장된 transaction 읽어옴
         local_transaction = OrderTransaction.objects.filter(merchant_order_id=merchant_order_id,
-                                                            transaction_id = pto_id, amount=amount).exists()
+                                                            transaction_id = imp_id, amount=amount).exists()
 
         # 포트원에서 요청해 받아온 transaction, DB에 저장된 transaction 확인
-        if not portone_transaction or not local_transaction:
+        if not iamport_transaction or not local_transaction:
             raise ValueError("비정상 거래입니다.")
 
 from django.db.models.signals import post_save
