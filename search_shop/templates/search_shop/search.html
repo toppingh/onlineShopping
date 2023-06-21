@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}<br>
+<div>
+    <p class="font-weight-bold" style="text-align:center">검색 결과 : <b>"{{query}}"</b></p>
+</div>
+<div class="container">
+    <div class="row mx-auto">
+     {% for product in products %}
+            <div class="col-sm-4">
+                <div class="card">
+                    <img class="card-img-top" src="{{product.image.url}}" alt="Product image" width="466px" height="270">
+                    <div class="card-body" style="text-align:center">
+                        <h5 class="card-title">{{product.name}}</h5>
+                        {% load humanize %}
+                        <img class="card-img" src="{{product.baeminImage.url}}" alt="QRcode image" style="width:70px; height:70px; text-align:center;"><p/>
+                            <h4 class="badge badge-light">
+&#8361;{{product.price | floatformat:'0' | intcomma}}</h4><p/>
+                        <a href="{{product.get_absolute_url}}" class="btn btn-outline-info">View Detail</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="row mx-info">
+                <p class="text-center my_search_text">0 개의 검색결과.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

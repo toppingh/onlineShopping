@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'coupon',
     'order',
     'disqus',
+    'search_shop',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
