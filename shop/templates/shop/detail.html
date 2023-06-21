@@ -20,9 +20,11 @@
             <br>
             <h5><span class="badge badge-light"><a href="{{product.url}}">홈페이지 바로가기</a></span></h5>
             <br>
-            <h5><span class="badge badge-secondary">설명
-</span>{{product.description|linebreaks}}</h5>
+            <h5><span class="badge badge-secondary">설명</span>{{product.description|linebreaks}}</h5>
         </div>
     </div>
+    <br><br>
+            {% load disqus_tags %}
+            {% disqus_show_comments %}
 </div>
 {% endblock %}

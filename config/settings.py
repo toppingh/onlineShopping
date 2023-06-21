@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'cart',
     'coupon',
     'order',
+    'disqus',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -171,3 +172,6 @@ IAMPORT_KEY = '6140640287675258'
 IAMPORT_SECRET = 'NccoqA8Z94Gb026CsBFa3J71UCCkfy1CxJskbSiBrKiFENRKeepLWAOc0sbCXf9Uwu9ENwfEkC7epGY7'
 
 STATICFILES_DIRS = [BASE_DIR/'static']
+
+# DISQUS
+DISQUS_WEBSITE_SHORTNAME = 'toppings-shop'
